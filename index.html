@@ -152,8 +152,8 @@
       }
       .layout {
         display: grid;
-        grid-template-columns: minmax(340px, 440px) minmax(0, 1fr);
-        gap: 24px;
+        grid-template-columns: minmax(300px, 370px) minmax(0, 1fr);
+        gap: 20px;
         align-items: start;
       }
       .panel {
@@ -167,7 +167,7 @@
         overflow: hidden;
       }
       .section {
-        padding: 20px;
+        padding: 16px;
         border-bottom: 1px solid var(--line);
       }
       .section:last-child {
@@ -594,7 +594,7 @@
             <div class="panel">
               <section class="section">
                 <div class="versionline"><span class="dot"></span> 自訂示例・重新整理即還原</div>
-                <h2>01 / 攻擊與目標</h2>
+                <h2>01 / 攻擊、命中、致傷與豁免</h2>
                 <div class="grid">
                   <label class="full"
                     >攻擊數 A<input
@@ -605,6 +605,24 @@
                       spellcheck="false"
                       aria-describedby="diceHelp"
                   /></label>
+                  <label>未修正命中<select id="hit" data-threshold="3"></select></label
+                  ><label>未修正造傷<select id="wound" data-threshold="4"></select></label
+                  ><label class="full"
+                    >有效護甲門檻（已計入AP）<select
+                      id="save"
+                      data-threshold="4"
+                      data-none="true"
+                    ></select
+                  ></label>
+                  <label class="full"
+                    >無敵豁免 InSv<select id="inv" data-threshold="99" data-none="true"></select
+                  ></label>
+                  <p class="hint full">
+                    命中尚未計入BS／WS修正、掩護及命中擲骰修正；致傷尚未計入擲骰修正。此模式不再套用AP。
+                  </p>
+                  <p class="hint full">
+                    洪流攻擊請將未修正命中選為「N/A（洪流）」；洪流自動命中，且不觸發連擊或Lethal。
+                  </p>
                   <label
                     >每次傷害 D<input
                       id="damage"
@@ -614,38 +632,13 @@
                       spellcheck="false"
                       aria-describedby="diceHelp"
                   /></label>
-                  <div class="hint" id="diceHelp">
-                    格式：12、D3／d3、D6／d6、2D6+2。<br />最多20顆骰，加值0～50。<br />最大總攻擊300，單次傷害50。
-                  </div>
-                  <label
-                    >目標模型數 N<input id="N" type="number" min="1" max="30" value="5" /></label
-                  ><label
-                    >每模型耐久 W<input id="W" type="number" min="1" max="50" value="2"
-                  /></label>
-                </div>
-                <p class="hint">
-                  同規格、全體滿耐久。每模型多把同款武器請輸入其合計攻擊量；隨機骰數須合併成等價骰式。
-                </p>
-              </section>
-              <section class="section">
-                <h2>02 / 命中、致傷與豁免</h2>
-                <div class="grid">
-                  <label>基礎命中（尚未修正）<select id="hit" data-threshold="3"></select></label
-                  ><label>基礎致傷（尚未修正）<select id="wound" data-threshold="4"></select></label
-                  ><label class="full"
-                    >有效護甲門檻（已計入AP）<select
-                      id="save"
-                      data-threshold="4"
-                      data-none="true"
-                    ></select
-                  ></label>
-                  <p class="hint full">
-                    命中尚未計入BS／WS修正、掩護及命中擲骰修正；致傷尚未計入擲骰修正。此模式不再套用AP。
+                  <label>目標模型數 N<input id="N" type="number" min="1" max="30" value="5" /></label>
+                  <label>每模型耐久 W<input id="W" type="number" min="1" max="50" value="2" /></label>
+                  <p class="hint full" id="diceHelp">
+                    傷害格式：12、D3／d3、D6／d6、2D6+2。最多20顆骰，加值0～50。單次傷害上限50。<br />
+                    同規格、全體滿耐久。每模型多把同款武器請輸入其合計攻擊量；隨機骰數須合併成等價骰式。最大總攻擊300。
                   </p>
                 </div>
-                <label style="margin-top: 14px"
-                  >無敵豁免 InSv<select id="inv" data-threshold="99" data-none="true"></select
-                ></label>
                 <p class="hint">護甲與無敵取較有利者；不連續擲兩次。</p>
                 <div id="derived" class="mathnote" aria-live="polite"></div>
               </section>
@@ -709,13 +702,7 @@
                   >
                   <label class="check full"
                     ><input id="dev" type="checkbox" />毀滅致傷 Devastating Wounds</label
-                  ><label class="check full"
-                    ><input id="torrent" type="checkbox" />洪流 Torrent</label
-                  >
-                  <p id="torrentNote" class="hint full" hidden>
-                    Torrent自動命中：命中門檻、命中重擲、命中暴擊及命中相關修正不生效；不觸發連擊／Lethal。致傷及其效果仍生效。
-                  </p>
-                </div>
+                  >                </div>
               </details>
               <details class="section">
                 <summary>04 / 防禦與條件式FNP</summary>
@@ -1304,11 +1291,11 @@
           z.hit =
             c.mode === "stats"
               ? integer(c.skill, 2, 6, "BS／WS")
-              : integer(c.hit, 2, 6, "基礎命中");
+              : integer(c.hit, 2, 6, "未修正命中");
           z.wound =
             c.mode === "stats"
               ? wound(integer(c.S, 1, 100, "S"), integer(c.T, 1, 100, "T"))
-              : integer(c.wound, 2, 6, "基礎致傷");
+              : integer(c.wound, 2, 6, "未修正造傷");
           const sv =
             c.mode === "stats" ? integer(c.Sv, 2, 7, "Sv") : integer(c.save, 2, 99, "有效護甲門檻");
           z.armour = c.mode === "stats" ? sv - integer(c.AP, -20, 0, "AP") : sv;
@@ -2016,6 +2003,7 @@
             ),
           );
       }
+      $("hit").add(new Option("N/A（洪流）", "torrent"));
       for (const s of document.querySelectorAll("select[data-reroll]"))
         for (const [v, t] of [
           ["none", "不重擲"],
@@ -2087,7 +2075,7 @@
         "BS／WS、命中、致傷及掩護修正已依使用者補充的02.02規則啟用。重擲及減傷組合仍待核實，會阻擋計算。未全面核對最新 App／FAQ。輸入代表你已確認能力及戰場條件適用；本工具不驗證軍表、射程、視線或地形位置。":
           "BS/WS, Hit, Wound, and Cover modifiers are enabled based on the user-provided 02.02 rules. Rerolls and damage-reduction combinations remain unverified and will block calculation. The latest App/FAQ have not been fully checked. You are responsible for confirming that abilities and battlefield conditions apply; this tool does not validate army lists, range, line of sight, or terrain placement.",
         "自訂示例・重新整理即還原": "Custom example · restored on refresh",
-        "01 / 攻擊與目標": "01 / Attacks & Target",
+        "01 / 攻擊、命中、致傷與豁免": "01 / Attacks, Hit, Wound & Saves",
         "攻擊數 A": "Attacks A",
         攻擊類型: "Attack type",
         "射擊 Ranged": "Ranged",
@@ -2111,12 +2099,14 @@
         "每模型耐久 W": "Wounds per model W",
         "同規格、全體滿耐久。每模型多把同款武器請輸入其合計攻擊量；隨機骰數須合併成等價骰式。":
           "All models are identical and at full wounds. For multiple identical weapons per model, enter their combined attacks; combine random dice into an equivalent expression.",
-        "02 / 命中、致傷與豁免": "02 / Hit, Wound & Saves",
-        "基礎命中（尚未修正）": "Base Hit (unmodified)",
-        "基礎致傷（尚未修正）": "Base Wound (unmodified)",
+        未修正命中: "Unmodified Hit",
+        未修正造傷: "Unmodified Wound",
+        "N/A（洪流）": "N/A (Torrent)",
         "有效護甲門檻（已計入AP）": "Effective armour save (AP included)",
         "命中尚未計入BS／WS修正、掩護及命中擲骰修正；致傷尚未計入擲骰修正。此模式不再套用AP。":
           "Hit does not yet include BS/WS, Cover, or Hit-roll modifiers; Wound does not yet include roll modifiers. AP is not applied again in this mode.",
+        "洪流攻擊請將未修正命中選為「N/A（洪流）」；洪流自動命中，且不觸發連擊或Lethal。":
+          "For Torrent attacks, select “N/A (Torrent)” for Unmodified Hit; Torrent automatically hits and does not trigger Sustained Hits or Lethal Hits.",
         "BS 射擊能力值": "BS (Ranged skill)",
         "WS 近戰能力值": "WS (Melee skill)",
         "武器力量 S": "Weapon Strength S",
@@ -2185,9 +2175,6 @@
         採用自動致傷: "Use automatic Wounds",
         "不採用，照常擲致傷": "Decline; roll Wounds normally",
         "毀滅致傷 Devastating Wounds": "Devastating Wounds",
-        "洪流 Torrent": "Torrent",
-        "Torrent自動命中：命中門檻、命中重擲、命中暴擊及命中相關修正不生效；不觸發連擊／Lethal。致傷及其效果仍生效。":
-          "Torrent automatically hits: Hit thresholds, Hit rerolls, Hit criticals, and Hit modifiers do not apply; Sustained Hits/Lethal Hits do not trigger. Wounds and their effects still apply.",
         "04 / 防禦與條件式FNP": "04 / Defence & conditional FNP",
         傷害減半: "Halve damage",
         "固定減傷 r（0為停用）": "Fixed damage reduction r (0 disables)",
@@ -2518,7 +2505,7 @@
         .forEach((section) => advancedDialog.append(section));
       const dialogStyle = document.createElement("style");
       dialogStyle.textContent =
-        ".advanced-settings-button{margin:10px 0 0}.advanced-dialog .section{border-bottom:1px solid var(--line)}";
+        ".advanced-settings-button{display:block;width:100%;min-height:56px;margin:14px 0 0;padding:14px 18px;font-size:17px;font-weight:700}.advanced-dialog .section{border-bottom:1px solid var(--line)}";
       document.head.append(dialogStyle);
       closeAdvanced.addEventListener("click", () => advancedButton.focus());
       for (const item of document.querySelectorAll(".provenance li"))
@@ -2738,12 +2725,13 @@
           "specialInv",
         ])
           c[key] = $(key).value;
+        c.torrent = $("hit").value === "torrent";
+        if (c.torrent) c.hit = $("hit").dataset.threshold;
         for (const key of [
           "psychic",
           "sustained",
           "lethal",
           "dev",
-          "torrent",
           "cover",
           "ignoreCover",
           "half",
@@ -2770,9 +2758,8 @@
           !$("psychic").checked || !$("cover").checked || $("phase").value !== "ranged";
         for (const e of document.querySelectorAll(".ignore"))
           e.disabled = !$("psychic").checked || e.closest(".dynamic-row").dataset.kind === "wound";
-        const torrent = $("torrent").checked;
-        $("torrentNote").hidden = !torrent;
-        for (const id of ["hit", "hr", "hcrit"]) $(id).disabled = torrent;
+        const torrent = $("hit").value === "torrent";
+        for (const id of ["hr", "hcrit"]) $(id).disabled = torrent;
         for (const id of ["hr", "wr"]) {
           const mode = $(id).value,
             active = mode !== "none" && !(id === "hr" && torrent),
@@ -2809,7 +2796,7 @@
               language === "en" ? "Hit: Torrent automatically hits." : "命中：Torrent自動成功。";
           else if (language === "en")
             text =
-              "Hit: base " +
+              "Hit: unmodified " +
               z.hit +
               "+ → BS/WS " +
               z.finalSkill +
@@ -2826,7 +2813,7 @@
               ".";
           else
             text =
-              "命中：基礎" +
+              "命中：未修正" +
               z.hit +
               "+ → BS／WS" +
               (z.skillDelta === 0
@@ -2843,7 +2830,7 @@
               "。";
           text +=
             language === "en"
-              ? " Wound: base " +
+              ? " Wound: unmodified " +
                 z.wound +
                 "+; roll modifiers " +
                 z.woundRaw +
@@ -2852,7 +2839,7 @@
                 ". Effective save: " +
                 (z.save > 6 ? "no save available" : z.save + "+") +
                 "."
-              : " 致傷：基礎" +
+              : " 造傷：未修正" +
                 z.wound +
                 "+；擲骰合計" +
                 z.woundRaw +
