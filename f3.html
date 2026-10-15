@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言板</title>
+</head>
+<body>
+    <h1 class="T001"><strong>留言板</strong></h1>
+    <a href="read_mesg.php">查看留言</a><br>
+    <form id="form1" name="form1" method="post" action="message(1).php">
+        <p><img src="images/ball.gif" width="14" height="14" />姓名：
+            <label for="txtName"></label>
+            <input name="txtName" type="text" id="textfield2" size="16" maxlength="14" required />
+        </p>
+        <p><img src="images/ball.gif" width="14" height="14" />性別：
+            <label><input name="rdoGender" type="radio" id="rdoGender_0" value="1" checked /> 男</label>
+            <label><input name="rdoGender" type="radio" id="rdoGender_1" value="0" /> 女</label>
+        </p>
+        <p><img src="images/ball.gif" width="14" height="14" />Email：
+            <label for="txtEmail"></label>
+            <input name="txtEmail" type="email" id="txtEmail" size="40" maxlength="30" required />
+        </p>
+        <p><img src="images/ball.gif" width="14" height="14" />主旨：
+            <label for="txtSubject"></label>
+            <input name="txtSubject" type="text" id="txtSubject" size="40" maxlength="30" required />
+        </p>
+        <p><img src="images/ball.gif" width="14" height="14" />留言板：
+            <label for="txtMessage"></label>
+            <textarea name="txtMessage" id="txtMessage" rows="3" cols="30" required></textarea>
+        </p>
+        <p>
+            <input type="submit" name="button" id="button" value="送給Daniel" />
+            <input type="reset" name="button2" id="button2" value="重新輸入" />
+        </p>
+    </form>
+</body>
+</html>

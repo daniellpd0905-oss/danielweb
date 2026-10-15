@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>Daniel - 自我介紹</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        body {
+            background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+            color: #00fff7;
+            font-family: 'Share Tech Mono', '微軟正黑體', monospace;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cyber-container {
+            background: rgba(20, 30, 40, 0.92);
+            border: 2px solid #00fff7;
+            border-radius: 18px;
+            box-shadow: 0 0 32px #00fff7, 0 0 8px #ff00ea inset;
+            padding: 40px 32px 32px 32px;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+        }
+        .cyber-container::before, .cyber-container::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff00ea 0%, #00fff7 100%);
+            border-radius: 2px;
+        }
+        .cyber-container::before {
+            top: 18px;
+            left: 24px;
+        }
+        .cyber-container::after {
+            bottom: 18px;
+            right: 24px;
+        }
+        .cyber-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #ff00ea;
+            box-shadow: 0 0 16px #00fff7, 0 0 8px #ff00ea inset;
+            margin-bottom: 18px;
+            object-fit: cover;
+            background: #222;
+        }
+        h1 {
+            font-size: 2em;
+            letter-spacing: 2px;
+            margin: 0 0 10px 0;
+            color: #ff00ea;
+            text-shadow: 0 0 8px #00fff7;
+        }
+        .cyber-info {
+            font-size: 1.1em;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+        .cyber-contact {
+            color: #00fff7;
+            text-decoration: none;
+            border-bottom: 1px dashed #ff00ea;
+            transition: color 0.2s;
+        }
+        .cyber-contact:hover {
+            color: #ff00ea;
+        }
+    </style>
+</head>
+<body>
+    <audio id="bgm" src="1-01 Hopes and Dreams.flac" autoplay loop></audio>
+    <div class="cyber-container">
+        <img src="001.jpg" alt="個人頭像" class="cyber-avatar">
+        <h1> Introduce</h1>
+        <div class="cyber-info">
+            嗨，我是Daniel，綽號是稜鏡。<br>
+            一名熱愛精靈與戰錘的學生。<br>
+            喜歡古文明、賽博龐克與日本文化。<br>
+            在霓虹閃爍之處，靈魂於虛擬與現實交錯。
+        </div>
+        <div class="cyber-info">
+            技能：HTML / C++ / Python<br>
+            興趣：電子音樂、輕小說、戰錘40K
+        </div>
+        <div class="cyber-info" style="margin-top:12px;">
+            <a href="https://space.bilibili.com/3546619972684508?spm_id_from=333.337.0.0" class="cyber-contact" target="_blank">
+                我的Bilibili主頁
+            </a>
+        </div>
+    </div>
+</body>
+</html>

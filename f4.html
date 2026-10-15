@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>留言板</title>
+</head>
+<body>
+<h1 class="TO01"><strong>留言板</strong></h1>
+<a href="read_mesgi.php">查看留言</a><br/>
+
+<form id="form1" name="form1" method="post" action="message.php">
+    <p><img src="images/ball.gif" width="14" height="14" /> 姓名：
+    <input name="txtName" type="text" id="txtName" size="16" maxlength="14" /></p>
+
+    <p><img src="images/ball.gif" width="14" height="14" /> 性別：
+    <label><input name="rdoGender" type="radio" value="1" checked />男</label>
+    <label><input name="rdoGender" type="radio" value="0" />女</label></p>
+
+    <p><img src="images/ball.gif" width="14" height="14" /> Email：
+    <input name="txtEmail" type="text" id="txtEmail" size="40" maxlength="30" /></p>
+
+    <p><img src="images/ball.gif" width="14" height="14" /> 主旨：
+    <input name="txtSubject" type="text" id="txtSubject" size="40" maxlength="30" /></p>
+
+    <p><img src="images/ball.gif" width="14" height="14" /> 留言：
+    <textarea name="txtMessage" rows="3" cols="30"></textarea></p>
+
+    <p>
+    <input type="submit" name="button" id="button" value="送出留言" />
+    <input type="reset" name="button2" id="button2" value="重新輸入"/>
+    </p>
+</form>
+</body>
+</html>

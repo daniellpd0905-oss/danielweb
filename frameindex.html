@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>Prism City</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        body {
+            background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+            color: #00fff7;
+            font-family: 'Share Tech Mono', '微軟正黑體', monospace;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .cyber-container {
+            background: rgba(20, 30, 40, 0.92);
+            border: 2.5px solid #00fff7;
+            border-radius: 24px;
+            box-shadow: 0 0 48px #00fff7, 0 0 16px #ff00ea inset;
+            padding: 6vw 4vw 5vw 4vw; /* 使用vw讓內距隨視窗變化 */
+            max-width: 90vw;
+            width: 80vw;
+            min-height: 80vh;
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .cyber-container::before, .cyber-container::after {
+            content: '';
+            position: absolute;
+            width: 18vw;
+            max-width: 180px;
+            height: 8px;
+            background: linear-gradient(90deg, #ff00ea 0%, #00fff7 100%);
+            border-radius: 3px;
+        }
+        .cyber-container::before {
+            top: 36px;
+            left: 48px;
+        }
+        .cyber-container::after {
+            bottom: 36px;
+            right: 48px;
+        }
+        h2 {
+            font-size: 3.2em;
+            letter-spacing: 3px;
+            margin: 0 0 48px 0;
+            color: #ff00ea;
+            text-shadow: 0 0 18px #00fff7;
+        }
+        .nav-links {
+            margin-bottom: 0;
+        }
+        .nav-links a {
+            display: block;
+            padding: 2.2em 0;
+            color: #00fff7;
+            text-decoration: none;
+            font-size: 2em;
+            border-bottom: 2px solid #222c;
+            transition: background 0.2s, color 0.2s, border-radius 0.2s;
+            border-radius: 12px;
+            margin: 0 0 12px 0;
+        }
+        .nav-links a:last-child {
+            border-bottom: none;
+        }
+        .nav-links a:hover {
+            background: #1a233a;
+            color: #ff00ea;
+            border-radius: 24px;
+            box-shadow: 0 0 18px #00fff7;
+        }
+        @media (max-width: 900px) {
+            .cyber-container {
+                padding: 4vw 2vw 3vw 2vw;
+                width: 98vw;
+                min-height: 90vh;
+            }
+            h2 {
+                font-size: 2em;
+            }
+            .nav-links a {
+                font-size: 1.2em;
+                padding: 1.2em 0;
+            }
+            .cyber-container::before, .cyber-container::after {
+                width: 30vw;
+                max-width: 100px;
+                height: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cyber-container">
+        <h2>MENU</h2>
+        <div class="nav-links">
+            <a href="HW04.php" target="right">HW04超速警示與速度記錄</a>
+            <a href="bmibmr.html" target="right">BMIBMR作業</a>
+            <a href="f2.html" target="right">f2.html內容</a>
+            <a href="f3.html" target="right">f3.html內容</a>
+            <a href="f4.html" target="right">第二次留言版作業</a>
+            <a href="index1.php" target="right">戰錘店面訂位系統</a>
+            <a href="f5.html" target="right">無聊用的貪吃蛇遊戲</a>
+            <a href="f6.html" target="_blank">0513homework</a>
+            <a href="read_mesg.php" target="right">查看留言</a>
+            <a href="midterm.html" target="right">期中實作</a>
+        </div>
+    </div>
+</body>
+</html>
+
